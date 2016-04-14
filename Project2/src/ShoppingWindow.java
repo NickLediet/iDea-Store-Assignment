@@ -72,6 +72,7 @@ public class ShoppingWindow extends JFrame
 		bMore = new JButton[size];
 		addToCart = new JButton[size];
 		remove = new JButton[size];
+		
 		////////TO DO:
 
 		/*
@@ -95,7 +96,7 @@ public class ShoppingWindow extends JFrame
 			description[i].setPreferredSize(new Dimension(175,100));
 			description[i].setLineWrap(true);
 			description[i].setWrapStyleWord(true);
-					
+			
 			description[i].setEditable(false);
 			bMore[i] = new JButton("More");
 			addToCart[i] = new JButton("Add To Cart");
