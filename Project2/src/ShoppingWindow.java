@@ -8,11 +8,14 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.*;
 import javax.swing.*;
 
 public class ShoppingWindow extends JFrame
-{
+{ 
 
 	private int size = 4;
 	
@@ -24,8 +27,10 @@ public class ShoppingWindow extends JFrame
 	
 	private JButton confirmOrder;
 	private JLabel lblSubTotal;
-	private JLabel lblCarrot; 
+	private JLabel lblCarrot,lblironThrone; 
 	
+	//array of images
+	private JLabel [] images;
 	//description box's
 	private JTextArea [] description;
 	
@@ -35,12 +40,12 @@ public class ShoppingWindow extends JFrame
 	private JComboBox<String> []colour;
 	private JComboBox<String> []quantity;
 	
+	//array of string to grab images
+	private String [] imageList = {"Carrot.jpg","IronThrone.jpg","table.jpg","couch.jpg"};
 	private JPanel [] products;
 	
-	private BufferedImage ironThrone;
-
-	private ImageIcon carrot;
-	public ShoppingWindow()
+	//private Image carrot;
+	public ShoppingWindow() throws IOException
 	{
 		super("Welcome to the iDea! Store Online Shopping System");
 		this.setLayout(new BorderLayout());
@@ -60,7 +65,7 @@ public class ShoppingWindow extends JFrame
 		setVisible(true);
 		
 	}
-	private void buildTopPanel()
+	private void buildTopPanel() throws IOException
 	{
 		topPanel = new JPanel();
 		topPanel.setLayout(new GridLayout(1,4,10,10));
@@ -73,20 +78,15 @@ public class ShoppingWindow extends JFrame
 		addToCart = new JButton[size];
 		remove = new JButton[size];
 		
-		////////TO DO:
+		//colour = new JComboBox<String>();
+		
+		//initialize array of images
+		images = new JLabel[size];	
 
-		/*
-		Image newCarrot = carrot.getImage();
-		BufferedImage bCarrot = new BufferedImage(20,10,BufferedImage.TYPE_INT_ARGB);
-		Graphics g = bCarrot.createGraphics(); 
-		g.drawImage(newCarrot, 0, 0, 20, 10, null); 
-		ImageIcon newIcon = new ImageIcon(bCarrot); 
-		lblCarrot = new JLabel(carrot);
-		/////////*/
+		
 		for(int i = 0;i<products.length;i++)
 		{
-			carrot = new ImageIcon("carrot.jpg");
-			lblCarrot = new JLabel(carrot);
+
 			products[i] = new JPanel();
 			products[i].setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 1), ""));
 			
@@ -96,7 +96,7 @@ public class ShoppingWindow extends JFrame
 			description[i].setPreferredSize(new Dimension(175,100));
 			description[i].setLineWrap(true);
 			description[i].setWrapStyleWord(true);
-			
+					
 			description[i].setEditable(false);
 			bMore[i] = new JButton("More");
 			addToCart[i] = new JButton("Add To Cart");
@@ -104,7 +104,16 @@ public class ShoppingWindow extends JFrame
 			
 			//bMore[i]
 			
-			//products[i].add(lblCarrot);
+			//create a new image that is scaled down to fit in panel
+			BufferedImage image = ImageIO.read(new File(imageList[i]));
+			BufferedImage newImage = new BufferedImage(180, 150,BufferedImage.SCALE_SMOOTH);
+			newImage.getGraphics().drawImage(image, 0, 0, 180, 150, null); 
+			ImageIcon newIcon = new ImageIcon(newImage);
+			//add image to label array
+			images[i] = new JLabel(newIcon);
+			
+			//add image to panel
+			products[i].add(images[i]);
 
 			products[i].add(description[i]);
 			products[i].add(bMore[i]);
