@@ -61,44 +61,6 @@ public class Product
 	public void setPrice(double price)
 	{
 		this.price = price;
-	}
-	
-	/* createIcon */
-	public ImageIcon createIcon(){
-		ImageIcon icon = new ImageIcon(image);
-		Image icon_image = icon.getImage();
-		BufferedImage icon_buffered = new BufferedImage(20,10,BufferedImage.TYPE_INT_ARGB);
-		Graphics g = icon_buffered.createGraphics(); 
-		g.drawImage(icon_image, 0, 0, 20, 10, null); 
-		ImageIcon newIcon = new ImageIcon(icon_buffered);
-		return newIcon;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

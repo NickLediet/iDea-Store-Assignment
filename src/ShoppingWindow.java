@@ -8,6 +8,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -35,27 +36,23 @@ public class ShoppingWindow extends JFrame
 	private JPanel topPanel,bottomPanel;
 	
 	private JPanel [] products;
-	private Product [] products_arr;
-	
-	private BufferedImage ironThrone;
-
-	private ImageIcon carrot;
-	/* Customer init */
-	customer = new Customer();
+	private ArrayList<Product> products_arrl;	
 	/* @Nick added Data of Products for use */
-	private String[] quant_arr  = {"1","2","3","4","5","6","7","8","9","10"};
-	private String[] colour_arr = {"Black", "White", "Brown", "Orange" , "Blue", "Red"};
+	String[] quant_arr = {"1","2","3","4","5","6","7","8","9","10"};
+	String[] colour_arr = {"Black", "White", "Brown", "Orange" , "Blue", "Red"};
+	
 	/* @Nick added the arrays for JComboBox ... */
-	private JComboBox[] colour;
-	@SuppressWarnings("rawtypes")/* @nick, I have no idea what is happening here...
-									just eclipse sure seems to like it */
-	private JComboBox[] quantity;
+	private JComboBox<String> colour;
+	private JComboBox<String> quantity;
+	private JLabel[] lbl_arr = new JLabel[size];
+	
+	int i = 0;
 	public ShoppingWindow()
 	{
+		
 		super("Welcome to the iDea! Store Online Shopping System");
 		this.setLayout(new BorderLayout());
 	
-		/* ERRRORRRRR HEEEEEREEE @!!!!!!! FUUUUUCk */	
 		buildTopPanel();
 		buildBottomPanel();
 		
@@ -72,6 +69,11 @@ public class ShoppingWindow extends JFrame
 	}
 	private void buildTopPanel()
 	{
+		/* Customer init */
+		customer = new Customer();
+		
+		
+		
 		topPanel = new JPanel();
 		topPanel.setLayout(new GridLayout(1,4,10,10));
 		topPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 1), ""));
@@ -86,26 +88,28 @@ public class ShoppingWindow extends JFrame
 		
 		
 		/* @ NICK Product population */
-		products_arr[0] = new Product("Carrot",
+		products_arrl = new ArrayList<Product>();
+		products_arrl.add( new Product("Carrot",
 				"Nulla facilisi. Interdum et malesuada fames ac ante ipsum primis in faucibus. "
 				+ "Vivamus lobortis viverra blandit. Suspendisse potenti. Etiam tristique molestie"
 				+ " nisi, et hendrerit ipsum elementum egestas.", 
 				"",
-				149.99);
-		products_arr[1] = new Product("The Iron Throne","Morbi mollis eros a lorem eleifend faucibus. "
+				149.99));
+		products_arrl.add(new Product("The Iron Throne","Morbi mollis eros a lorem eleifend faucibus. "
 				+ "Maecenas dictum lobortis libero, sed euismod risus euismod eu. Sed et tempor mi. "
 				+ "Nunc dictum vehicula elit sed dignissim. Etiam rutrum venenatis mauris, vel mollis"
-				+ " nibh bibendum at. ", "", 4000.59);
-		products_arr[2] = new Product("Carrot",
+				+ " nibh bibendum at. ", "", 4000.59));
+		products_arrl.add(new Product("Carrot",
 				"Nulla facilisi. Interdum et malesuada fames ac ante ipsum primis in faucibus. "
 				+ "Vivamus lobortis viverra blandit. Suspendisse potenti. Etiam tristique molestie"
 				+ " nisi, et hendrerit ipsum elementum egestas.", 
 				"",
-				149.99);
-		products_arr[3] = new Product("The Iron Throne","Morbi mollis eros a lorem eleifend faucibus. "
+				149.99));
+		products_arrl.add(new Product("The Iron Throne","Morbi mollis eros a lorem eleifend faucibus. "
 				+ "Maecenas dictum lobortis libero, sed euismod risus euismod eu. Sed et tempor mi. "
 				+ "Nunc dictum vehicula elit sed dignissim. Etiam rutrum venenatis mauris, vel mollis"
-				+ " nibh bibendum at. ", "", 4000.59);
+				+ " nibh bibendum at. ", "", 4000.59));
+		
 		////////TO DO:
 
 		/*
@@ -116,22 +120,22 @@ public class ShoppingWindow extends JFrame
 		ImageIcon newIcon = new ImageIcon(bCarrot); 
 		lblCarrot = new JLabel(carrot);
 		/////////*/
-		for(int i = 0;i<products.length;i++)
+		for(Product p : products_arrl)// p is never used ... this is just a looping tool
 		{
 			/* @Nick init J-Combo box */
-			colour[i] = new JComboBox<String>(colour_arr);
-			quantity[i] = new JComboBox<String>(quant_arr);
+			colour = new JComboBox<>(colour_arr);
+			quantity = new JComboBox<>(quant_arr);
+
 			
-			
-			carrot = new ImageIcon(products_arr[i].getImage());
-			lblCarrot = new JLabel(products_arr[i].getName());
+			// carrot = new ImageIcon(products_arrl.get(i).getImage());
+			lbl_arr[i] = new JLabel(products_arrl.get(i).getName());
 			products[i] = new JPanel();
 			products[i].setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 1), ""));
 			
 			/* JTextDescription */
 			description[i] = new JTextArea();
 			description[i].setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 1), ""));
-			description[i].setText(products_arr[i].getDescription());
+			description[i].setText(products_arrl.get(i).getDescription());
 			description[i].setPreferredSize(new Dimension(175,100));
 			description[i].setLineWrap(true);
 			description[i].setWrapStyleWord(true);
@@ -139,17 +143,17 @@ public class ShoppingWindow extends JFrame
 			description[i].setEditable(false);
 			bMore[i] = new JButton("More");
 			addToCart[i] = new JButton("Add To Cart");// @nick call add to cart from customer
-			remove[i] = new JButton("Remove"); /*( @nick call remove from cart from customer
-												Something to think about: do I need to be unique /  call an instance of it */
+			remove[i] = new JButton("Remove"); 
 			
 			/*@nick Trying to add listeners through here */
 			/* addToCart btn */
 			addToCart[i].addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
-					int temp_int = Integer.parseInt(quantity[i].getSelectedItem().toString());
+					int temp_int = Integer.parseInt(quantity.getSelectedItem().toString());
 					customer.addToCart(
-							products_arr[i].getName(), colour[i].getSelectedItem().toString(),
-							temp_int, products_arr[i].getPrice());
+							products_arrl.get(i).getName(), colour.getSelectedItem().toString(),
+							temp_int, products_arrl.get(i).getPrice());
+					subTotal.setText(Double.toString(Global.subtotal));
 				}
 			});
 			
@@ -157,19 +161,30 @@ public class ShoppingWindow extends JFrame
 			remove[i].addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					customer.removeFromCart();
+					subTotal.setText(Double.toString(Global.subtotal));
 				}
 			});
 			
 			//bMore[i]
 			
 			//products[i].add(lblCarrot);
-			products[i].add(colour[i]);
-			products[i].add(quantity[i]);
+			products[i].add(lbl_arr[i]);
 			products[i].add(description[i]);
+			products[i].add(colour);
+			products[i].add(quantity);
 			products[i].add(bMore[i]);
 			products[i].add(addToCart[i]);
 			products[i].add(remove[i]);
 			topPanel.add(products[i]);
+			
+			/* abort!  So java insists that in someparts I wasn't final "enough"
+			 * so I set up a enchanced for loop interating over products with i being a controller*/
+			if(i == 3){
+				i = 0;
+				break;
+			} else {
+				i++;
+			}
 		}
 
 		
@@ -181,7 +196,7 @@ public class ShoppingWindow extends JFrame
 		lblSubTotal = new JLabel("SubTotal");
 		confirmOrder = new JButton("Confirm Order");
 		
-		subTotal = new JTextField(Double.toString(Global.subtotal));
+		subTotal = new JTextField();
 		subTotal.setPreferredSize(new Dimension(150,20));
 		subTotal.setEditable(false);
 		
