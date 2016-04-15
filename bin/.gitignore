@@ -8,3 +8,8 @@
 /ShoppingWindow$1.class
 /ShoppingWindow$2.class
 /ShoppingWindow.class
+/EmptyCartException.class
+/InvalidEmailException.class
+/ItemNotSelectedException.class
+/MissingFieldException.class
+/NoPaymentSelectedException.class
