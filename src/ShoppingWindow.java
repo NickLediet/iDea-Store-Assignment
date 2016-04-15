@@ -199,6 +199,11 @@ public class ShoppingWindow extends JFrame
 		subTotal = new JTextField();
 		subTotal.setPreferredSize(new Dimension(150,20));
 		subTotal.setEditable(false);
+		confirmOrder.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				ConfirmWindow confirmFrame = new ConfirmWindow();
+			}
+		});
 		
 		bottomPanel.add(lblSubTotal);
 		bottomPanel.add(subTotal);
