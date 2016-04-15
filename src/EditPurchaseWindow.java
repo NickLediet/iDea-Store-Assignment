@@ -11,7 +11,9 @@ public class EditPurchaseWindow extends JFrame
 	
 	public EditPurchaseWindow()
 	{
-		setLayout(new FlowLayout());
+		super("Edit Purchase");
+		SpringLayout layout = new SpringLayout();
+		this.setLayout(layout);
 		
 		lblproduct = new JLabel("Product");
 		lblcolour = new JLabel("Colour");
@@ -37,7 +39,54 @@ public class EditPurchaseWindow extends JFrame
 		add(priceTF);
 		add(bDone);
 		
-		setSize(250,300);
+		
+		layout.putConstraint(SpringLayout.WEST, lblproduct, 30, SpringLayout.WEST,
+				this.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, lblproduct, 30, SpringLayout.NORTH,
+				this.getContentPane());
+		
+		layout.putConstraint(SpringLayout.WEST, productTF, 100, SpringLayout.WEST,
+				this.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, productTF, 30, SpringLayout.NORTH,
+				this.getContentPane());
+		
+		layout.putConstraint(SpringLayout.WEST, lblcolour, 30, SpringLayout.WEST,
+				this.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, lblcolour, 90, SpringLayout.NORTH,
+				this.getContentPane());
+		
+		layout.putConstraint(SpringLayout.WEST, cmbColour, 100, SpringLayout.WEST,
+				this.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, cmbColour, 90, SpringLayout.NORTH,
+				this.getContentPane());
+		
+		layout.putConstraint(SpringLayout.WEST, lblquantity, 30, SpringLayout.WEST,
+				this.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, lblquantity, 150, SpringLayout.NORTH,
+				this.getContentPane());
+		
+		layout.putConstraint(SpringLayout.WEST, cmbQuantity, 100, SpringLayout.WEST,
+				this.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, cmbQuantity, 150, SpringLayout.NORTH,
+				this.getContentPane());
+		
+		layout.putConstraint(SpringLayout.WEST, lblprice, 30, SpringLayout.WEST,
+				this.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, lblprice, 210, SpringLayout.NORTH,
+				this.getContentPane());
+		
+		layout.putConstraint(SpringLayout.WEST, priceTF, 100, SpringLayout.WEST,
+				this.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, priceTF, 210, SpringLayout.NORTH,
+				this.getContentPane());
+		
+		layout.putConstraint(SpringLayout.WEST, bDone, 180, SpringLayout.WEST,
+				this.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, bDone, 210, SpringLayout.NORTH,
+				this.getContentPane());
+		
+		
+		setSize(300,300);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
