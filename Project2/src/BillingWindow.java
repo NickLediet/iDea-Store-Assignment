@@ -1,5 +1,5 @@
 
-public class Purchase
+public class BillingWindow
 {
 	//End of main method
 }

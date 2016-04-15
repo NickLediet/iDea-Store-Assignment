@@ -14,7 +14,7 @@ public class MainProgram extends JFrame
 	public static void main(String[] args)
 	{
 		ShoppingWindow frame = new ShoppingWindow();
-		ConfirmWindow confirmFrame = new ConfirmWindow();
+		
 	}
 	//End of main method
 }

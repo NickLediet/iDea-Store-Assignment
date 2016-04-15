@@ -146,6 +146,7 @@ public class Customer
 	/* calculateTotal */
 	double calculateTotal(){
 		return Global.subtotal + calculateHst() + calculateShipping();
+		
 	}
 }
 //End of class
